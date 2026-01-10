@@ -73,7 +73,7 @@ ifeq ("$(SPIRE_DEV)", "true")
 endif
 
 init-spire-dev: ##@init Initialize Spire for development
-	git -C ~/server/spire pull 2> /dev/null || git clone https://github.com/EQEmuTools/spire ~/server/spire
+	git -C ~/server/spire pull 2> /dev/null || git clone https://github.com/EQEmu/spire ~/server/spire
 	cd ~/server/spire && cp .env.dev .env
 	cd ~/server/spire && go get
 	cd ~/server/spire/frontend && npm install
@@ -158,7 +158,7 @@ init-eqemu-admin-assets: ##@init Initializes EQEmu Admin (spire) Assets
 init-eqemu-admin: ##@init Initializes EQEmu Admin
 	rm -f ~/server/bin/eqemu-admin-*
 	rm -f ~/server/bin/spire-*
-	wget --progress=bar:force:noscroll --quiet https://github.com/EQEmuTools/spire/releases/latest/download/spire-linux-amd64.zip -O /tmp/spire.zip
+	wget --progress=bar:force:noscroll --quiet https://github.com/EQEmu/spire/releases/latest/download/spire-linux-amd64.zip -O /tmp/spire.zip
 	unzip -o /tmp/spire.zip -d ~/server/bin
 	mv ~/server/bin/spire-linux-amd64 ~/server/bin/spire
 	chmod +x ~/server/bin/spire
@@ -317,7 +317,7 @@ endif
 update-admin-panel: ##@update Update admin panel
 	kill $(shell ps aux | grep "eqemu-admin" | grep "web" | grep -v "grep" | awk '{print $$2}' | tr '\n' ' ') &>/dev/null || echo "Nothing to kill"
 	kill $(shell ps aux | grep "spire" | grep "http:serve" | grep -v "grep" | awk '{print $$2}' | tr '\n' ' ') &>/dev/null || echo "Nothing to kill"
-	wget --progress=bar:force:noscroll --quiet $(shell curl -s https://api.github.com/repos/EQEmuTools/spire/releases/latest | jq -r '.assets[].browser_download_url' | grep spire-linux) -O /tmp/spire.zip
+	wget --progress=bar:force:noscroll --quiet $(shell curl -s https://api.github.com/repos/EQEmu/spire/releases/latest | jq -r '.assets[].browser_download_url' | grep spire-linux) -O /tmp/spire.zip
 	unzip -o /tmp/spire.zip -d ~/server/bin
 	mv ~/server/bin/spire-linux-amd64 ~/server/bin/spire
 	chmod +x ~/server/bin/spire
