@@ -118,9 +118,9 @@ init-peq-database: ##@init Sources fresh PEQ database (Warning: Will over-write 
 
 init-loginserver: ##@init Initializes Loginserver
 	@./assets/scripts/banner.pl "Initializing Loginserver"
-	wget --quiet https://raw.githubusercontent.com/EQEmu/Server/master/loginserver/login_util/login.json -O /tmp/login.json
-	wget --quiet https://raw.githubusercontent.com/EQEmu/Server/master/loginserver/login_util/login_opcodes.conf -O ~/server/assets/opcodes/login_opcodes.conf
-	wget --quiet https://raw.githubusercontent.com/EQEmu/Server/master/loginserver/login_util/login_opcodes_sod.conf -O ~/server/assets/opcodes/login_opcodes_sod.conf
+	wget --quiet https://raw.githubusercontent.com/EQEmu/EQEmu/master/loginserver/login_util/login.json -O /tmp/login.json
+	wget --quiet https://raw.githubusercontent.com/EQEmu/EQEmu/master/loginserver/login_util/login_opcodes.conf -O ~/server/assets/opcodes/login_opcodes.conf
+	wget --quiet https://raw.githubusercontent.com/EQEmu/EQEmu/master/loginserver/login_util/login_opcodes_sod.conf -O ~/server/assets/opcodes/login_opcodes_sod.conf
 	cat /tmp/login.json | grep -o '^[^/]*' | jq '' \
 		| jq '.database.host = "$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.host')"' \
 		| jq '.database.db = "$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.db')"' \
@@ -129,7 +129,7 @@ init-loginserver: ##@init Initializes Loginserver
 		| jq '.client_configuration.titanium_opcodes = "assets/opcodes/login_opcodes.conf"' \
 		| jq '.client_configuration.sod_opcodes = "assets/opcodes/login_opcodes_sod.conf"' \
 		> ~/server/login.json
-	wget --quiet https://raw.githubusercontent.com/EQEmu/Server/master/loginserver/login_util/login_schema.sql -O /tmp/login_schema.sql
+	wget --quiet https://raw.githubusercontent.com/EQEmu/EQEmu/master/loginserver/login_util/login_schema.sql -O /tmp/login_schema.sql
 	mysql -u$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.username') \
 		-p$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.password') \
 		-h $(shell ~/assets/scripts/init/get-config-var.sh '.server.database.host') \
@@ -143,8 +143,8 @@ ifeq ("${ADMIN_PASSWORD}", "")
 	ADMIN_PASSWORD=$(shell cat ~/server/eqemu_config.json 2>/dev/null | jq '.["web-admin"].application.admin.password' | tr -d '"' || echo "")
 endif
 
-init-eqemu-admin-assets: ##@init Initializes EQEmu Admin Assets
-	@./assets/scripts/banner.pl "Initializing EQEmu Admin Assets"
+init-eqemu-admin-assets: ##@init Initializes EQEmu Admin (spire) Assets
+	@./assets/scripts/banner.pl "Initializing EQEmu Admin (spire) Assets"
 	@if [ $(shell find ~/.cache/spire/assets/assets | wc -l) -gt 10 ] ; then \
 		echo "spire assets are initialized"; \
 	else \
@@ -231,12 +231,12 @@ pull-maps: ##@assets Pulls maps
 		echo "maps is initialized"; \
 	else \
 		echo "maps is not initialized"; \
-		cd server && wget --progress=bar:force:noscroll https://github.com/EQEmuTools/eqemu-maps/releases/latest/download/maps.zip -O /tmp/maps.zip && unzip -o /tmp/maps.zip -d ~/server/maps && rm /tmp/maps.zip || true; \
+		cd server && wget --progress=bar:force:noscroll https://github.com/EQEmu/maps/releases/latest/download/maps.zip -O /tmp/maps.zip && unzip -o /tmp/maps.zip -d ~/server/maps && rm /tmp/maps.zip || true; \
 	fi
 
 pull-eqemu-code: ##@assets Pulls eqemu code
 	@./assets/scripts/banner.pl "Pulling EQEmu Source Code into [./code]"
-	git -C ./code pull 2> /dev/null || git clone https://github.com/EQEmu/Server.git code
+	git -C ./code pull 2> /dev/null || git clone https://github.com/EQEmu/EQEmu.git code
 
 pull-peq-quests: ##@assets Pulls ProjectEQ quests
 	@./assets/scripts/banner.pl "Pulling Latest ProjectEQ Quests"
