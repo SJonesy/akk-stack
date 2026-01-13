@@ -97,6 +97,7 @@ endif
 ifeq ($(ENABLE_BACKUP_CRON),true)
 	RUN_SERVICES+= backup-cron
 endif
+RUN_SERVICES+=migrations
 
 #----------------------
 # env

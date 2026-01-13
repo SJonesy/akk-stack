@@ -93,6 +93,28 @@ services:
       - fail2ban-mysqld
 
   #############################################
+  # data migrations
+  #############################################
+
+  migrations:
+    image: python:3.11-slim
+    depends_on:
+      - mariadb
+      - eqemu-server
+    volumes:
+      - ./migrations:/migrations
+    env_file:
+      - .env
+    networks:
+      - backend
+    command: >
+      bash -c "
+        env | sort &&
+        pip install mysql-connector-python &&
+        python3 /migrations/migrate.py
+      "
+
+  #############################################
   # fail2ban
   #############################################
 
