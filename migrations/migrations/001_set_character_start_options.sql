@@ -1,5 +1,5 @@
--- This changes the character creation options that are available in the client. We make it so that you can start as any race and only as
--- warrior. The only starting spot location is Erud's Crossing. The only starting religion is agnostic.
+-- This changes the character creation options that are available in the client. We make it so that you can start as any 
+-- race and only as warrior. The only starting spot location is Erud's Crossing. The only starting religion is agnostic.
 
 TRUNCATE TABLE `start_zones`;
 
