@@ -93,5 +93,10 @@ tmux send -t spire:0.1 "spire-fe" C-m  # Bottom pane (80%)
 tmux -u -2 attach-session -d -t spire
 )'
 
+######################################
+# utility
+######################################
+alias ll='ls -alF'
+
 # export LC_CTYPE=en_US.UTF-8
 export LC_ALL=C
