@@ -6,10 +6,10 @@ TRUNCATE TABLE `start_zones`;
 INSERT INTO `start_zones` (`x`,`y`, `z`, `heading`, `zone_id`, `bind_id`, `player_choice`, `player_class`, `player_deity`, `player_race`, `start_zone`,`bind_x`, `bind_y`, `bind_z`)
 VALUES
 (
-    -1767.00,   -- x: dock area in Erud's Crossing
-    795.00,     -- y: dock area in Erud's Crossing
-    4.00,       -- z: dock level
-    0.00,       -- heading: facing direction (0 = North)
+    -1773.00,   -- x: dock area in Erud's Crossing
+    663.00,     -- y: dock area in Erud's Crossing
+    2.00,       -- z: dock level
+    384.00,     -- heading: facing direction (0 = North)
     98,         -- zone_id: 98 = erudscrossing
     98,         -- bind_id: also bind in erudscrossing
     0,          -- player_choice: 0 = match any
@@ -17,9 +17,9 @@ VALUES
     0,          -- player_deity: 0 = match any
     0,          -- player_race: 0 = match any
     0,          -- start_zone: 0 = match any
-    -1767.00,   -- bind_x: same as spawn x
-    795.00,     -- bind_y: same as spawn y
-    4.00        -- bind_z: same as spawn z
+    -1773.00,   -- bind_x: same as spawn x
+    663.00,     -- bind_y: same as spawn y
+    2.00        -- bind_z: same as spawn z
 );
 
 TRUNCATE TABLE `char_create_combinations`;
